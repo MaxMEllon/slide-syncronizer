@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { createReducer } from 'redux-act'
-import * as actions from '../actions'
+import * as actions from '~/actions'
 
 export const initialState = {
   sample: null,

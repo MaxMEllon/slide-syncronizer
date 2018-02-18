@@ -1,7 +1,9 @@
+import path from 'path'
 import webpack from 'webpack'
 import Dotenv from 'dotenv-webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackNotifier from 'webpack-notifier'
+import HappyPack from 'happypack'
 
 const loaders = {
   babel() {
@@ -11,6 +13,13 @@ const loaders = {
       use: {
         loader: 'babel-loader?cacheDirectory=true',
       },
+    }
+  },
+  Happypack() {
+    return {
+      test: /\.js$/,
+      include: path.join(__dirname, 'src'),
+      use: 'happypack/loader',
     }
   },
 }
@@ -58,9 +67,13 @@ class ConfigGenerator {
           alwaysNotify: true,
         }),
       )
+      .add(
+        new HappyPack({
+          loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
+        }),
+      )
     if (this.dev) {
-      plugins.add(new webpack.HotModuleReplacementPlugin())
-      // .add(new webpack.NoEmitOnErrorsPlugin())
+      plugins.add(new webpack.HotModuleReplacementPlugin()).add(new webpack.NoEmitOnErrorsPlugin())
     }
     if (this.prod) {
       plugins
@@ -93,12 +106,17 @@ class ConfigGenerator {
   }
 
   get resolve() {
-    return { extensions: ['.js', '.jsx'] }
+    return {
+      extensions: ['.js', '.jsx'],
+      alias: {
+        '~': path.resolve(__dirname, 'src'),
+      },
+    }
   }
 
   get module() {
     return {
-      rules: [loaders.babel()],
+      rules: [loaders.Happypack()],
     }
   }
 
