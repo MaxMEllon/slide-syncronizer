@@ -69,17 +69,18 @@ class ConfigGenerator {
       )
       .add(
         new HappyPack({
-          loaders: [{ loader: 'babel-loader?cacheDirectory=true' }],
+          loaders: [
+            {
+              loader: 'babel-loader?cacheDirectory=true',
+            },
+          ],
         }),
       )
     if (this.dev) {
       plugins.add(new webpack.HotModuleReplacementPlugin()).add(new webpack.NoEmitOnErrorsPlugin())
     }
     if (this.prod) {
-      plugins
-        .add(new webpack.optimize.UglifyJsPlugin())
-        .add(new webpack.optimize.OccurenceOrderPlugin())
-        .add(new webpack.optimize.AggressiveMergingPlugin({ minSizeReduce: 1.5 }))
+      plugins.add(new webpack.optimize.UglifyJsPlugin())
     }
     return plugins
   }

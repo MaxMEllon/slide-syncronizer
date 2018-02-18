@@ -1,3 +1,4 @@
 /dist
 .package.*
 *.log
+stats.json

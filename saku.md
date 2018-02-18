@@ -27,6 +27,11 @@
 
     $(npm bin)/eslint --fix --format compact src/**/*.js
 
+# analyse
+
+    NODE_ENV=production $(npm bin)/webpack -p --profile --json > stats.json
+    $(npm bin)/webpack-bundle-analyzer stats.json
+
 # _ready
 > Deploy popular modules to dist directory for webpack.externals.
 > Popular libraries has not import as ESmodule.
