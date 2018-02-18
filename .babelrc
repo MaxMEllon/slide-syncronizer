@@ -1,0 +1,22 @@
+{
+  "presets": [
+    "@babel/react",
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "safari >= 7"
+          ]
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-pipeline-operator",
+    "@babel/plugin-proposal-optional-chaining",
+    "react-hot-loader/babel"
+  ]
+}
+
