@@ -1,4 +1,36 @@
-# ready
+# init
+> Initialize for development.
+> Actually, resolve dependencies as node modules.
+
+    type yarn && true || npm i -g yarn
+    yarn
+
+# dev
+> Start to develop by webpack-server.
+
+    $(npm bin)/saku _ready
+    NODE_ENV=development $(npm bin)/webpack-dev-server --watch --progress
+
+# build
+> Build the distribution files by webpack.
+
+    $(npm bin)/saku _ready
+    NODE_ENV=production $(npm bin)/webpack --progress -p
+
+# fmt
+> Auto format sources by prettier.
+
+    $(npm bin)/prettier --write src/**/*.js
+
+# lint
+> linting sources by eslint.
+
+    $(npm bin)/eslint --fix --format compact src/**/*.js
+
+# _ready
+> Deploy popular modules to dist directory for webpack.externals.
+> Popular libraries has not import as ESmodule.
+> Because, I want to improve building speed of webpack.
 
     rm -rf dist
     mkdir -p dist
@@ -10,19 +42,3 @@
     cp ./node_modules/bluebird/js/browser/bluebird.min.js dist
     cp ./node_modules/lodash/lodash.min.js dist
 
-# dev
-> Start to develop by webpack-server.
-
-    $(npm bin)/saku ready
-    NODE_ENV=development $(npm bin)/webpack-dev-server --watch --progress
-
-# build
-> Build the distribution files by webpack.
-
-    $(npm bin)/saku ready
-    NODE_ENV=production $(npm bin)/webpack --progress -p
-
-# fmt
-> Auto format sources by prettier
-
-    $(npm bin)/prettier --write src/**/*.js
