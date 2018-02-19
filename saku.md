@@ -39,6 +39,7 @@
 
     rm -rf dist
     mkdir -p dist
+    cp ./node_modules/reset.css/reset.css dist
     cp ./node_modules/react/umd/react.development.js dist
     cp ./node_modules/react/umd/react.production.min.js dist
     cp ./node_modules/react-dom/umd/react-dom.development.js dist
