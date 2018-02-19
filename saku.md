@@ -28,6 +28,7 @@
     $(npm bin)/eslint --fix --format compact src/**/*.js
 
 # analyse
+> analysis bundled file.
 
     NODE_ENV=production $(npm bin)/webpack -p --profile --json > stats.json
     $(npm bin)/webpack-bundle-analyzer stats.json
