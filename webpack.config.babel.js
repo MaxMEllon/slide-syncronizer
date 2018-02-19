@@ -4,6 +4,7 @@ import Dotenv from 'dotenv-webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackNotifier from 'webpack-notifier'
 import HappyPack from 'happypack'
+import CompressionPlugin from 'compression-webpack-plugin'
 
 const loaders = {
   babel() {
@@ -76,11 +77,16 @@ class ConfigGenerator {
           ],
         }),
       )
+      .add(new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        filename: 'vendor.bundle.js',
+      }))
     if (this.dev) {
       plugins.add(new webpack.HotModuleReplacementPlugin()).add(new webpack.NoEmitOnErrorsPlugin())
     }
     if (this.prod) {
       plugins.add(new webpack.optimize.UglifyJsPlugin())
+      plugins.add(new CompressionPlugin())
     }
     return plugins
   }
