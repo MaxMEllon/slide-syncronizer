@@ -16,7 +16,7 @@ const loaders = {
       },
     }
   },
-  Happypack() {
+  HappyPack() {
     return {
       test: /\.js$/,
       include: path.join(__dirname, 'src'),
@@ -24,6 +24,9 @@ const loaders = {
     }
   },
 }
+
+const minChunks = module => module.context && module.context.includes('node_modules')
+const template = dev => (dev ? './templates/index.dev.html' : './templates/index.html')
 
 class ConfigGenerator {
   constructor() {
@@ -54,41 +57,29 @@ class ConfigGenerator {
       Array.prototype.push.call(plugins, arg)
       return plugins
     }
+
+    /* prettier-disable */
+    /* eslint-disable */
+    const CommonsChunkPluginOpt = { name: 'app', filename: 'vendor.bundle.js', minChunks }
+    const HappyPackOpt = { loaders: [{ loader: 'babel-loader?cacheDirectory=true' }] }
     plugins
       .add(new Dotenv({ path: './.env' }))
-      .add(
-        new HtmlWebpackPlugin({
-          template: this.dev ? './templates/index.dev.html' : './templates/index.html',
-        }),
-      )
+      .add(new HtmlWebpackPlugin({ template: template(this.dev) }))
       .add(new webpack.NamedModulesPlugin())
-      .add(
-        new WebpackNotifier({
-          title: 'webpack',
-          alwaysNotify: true,
-        }),
-      )
-      .add(
-        new HappyPack({
-          loaders: [
-            {
-              loader: 'babel-loader?cacheDirectory=true',
-            },
-          ],
-        }),
-      )
-      .add(new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        filename: 'vendor.bundle.js',
-      }))
-    if (this.dev) {
-      plugins.add(new webpack.HotModuleReplacementPlugin()).add(new webpack.NoEmitOnErrorsPlugin())
-    }
-    if (this.prod) {
-      plugins.add(new webpack.optimize.UglifyJsPlugin())
-      plugins.add(new CompressionPlugin())
-    }
+      .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
+      .add(new HappyPack(HappyPackOpt))
+      .add(new webpack.optimize.CommonsChunkPlugin(CommonsChunkPluginOpt))
+    if (this.dev)
+      plugins
+        .add(new webpack.HotModuleReplacementPlugin())
+        .add(new webpack.NoEmitOnErrorsPlugin())
+    if (this.prod)
+      plugins
+        .add(new webpack.optimize.UglifyJsPlugin())
+        .add(new CompressionPlugin())
     return plugins
+    /* prettier-enable */
+    /* eslint-enable */
   }
 
   get devtool() {
@@ -123,7 +114,7 @@ class ConfigGenerator {
 
   get module() {
     return {
-      rules: [loaders.Happypack()],
+      rules: [loaders.HappyPack()],
     }
   }
 
