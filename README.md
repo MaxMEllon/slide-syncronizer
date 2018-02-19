@@ -10,7 +10,7 @@ Quick start in local
 Tasks
 ---
 
-Configured tasks based on [saku](https://github.com/kt3k/saku).
+Configured tasks by [saku](https://github.com/kt3k/saku).
 
 - **init** : `saku init`
   > initialize for development
