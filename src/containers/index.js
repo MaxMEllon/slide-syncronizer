@@ -1,14 +1,14 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import createStore from '~/stores'
 import styled from 'styled-components'
+import createStore from '~/stores'
 
 import App from './App'
 
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: white;
   overflow: hidden;
 `
 
