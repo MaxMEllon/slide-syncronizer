@@ -47,7 +47,7 @@ class ConfigGenerator {
 
   get entry() {
     return {
-      entry: './src/index.js',
+      entry: ['babel-polyfill', './src/index.js'],
     }
   }
 

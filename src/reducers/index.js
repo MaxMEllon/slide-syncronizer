@@ -1,18 +1,25 @@
+import _ from 'lodash'
 import { combineReducers } from 'redux'
 import { createReducer } from 'redux-act'
+import { routerReducer as router } from 'react-router-redux'
 import * as actions from '~/actions'
+import data from '~/constants/slide.json'
 
 export const initialState = {
-  sample: null,
+  currentPage: {
+    page: _.first(data.pages),
+    index: 0,
+  },
 }
 
-const sample = createReducer(
+const currentPage = createReducer(
   {
-    [actions.sample]: () => 'sample',
+    [actions.changePage]: (_1, payload) => payload,
   },
-  initialState.sample,
+  initialState.currentPage,
 )
 
 export default combineReducers({
-  sample,
+  currentPage,
+  router,
 })

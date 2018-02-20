@@ -1,7 +1,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import styled from 'styled-components'
-import createStore from '~/stores'
+import store from '~/stores'
 
 import App from './App'
 
@@ -12,14 +12,33 @@ const Background = styled.div`
   overflow: hidden;
 `
 
-const store = createStore()
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(16, 6.195vw);
+  grid-auto-rows: 6.195vw;
+  position: relative;
+  width: 100%;
+  background-color: black;
+`
+
+const Content = styled.div`
+  grid-column: span 16;
+  grid-row: span 10;
+  width: calc(100% - 20px);
+  height: calc(100% - 40px);
+  margin: 20px;
+`
 
 export default class EntryPoint extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <Background>
-          <App />
+          <Wrapper>
+            <Content>
+              <App />
+            </Content>
+          </Wrapper>
         </Background>
       </Provider>
     )
