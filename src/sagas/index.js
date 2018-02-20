@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { fork, put, call, select, takeLatest } from 'redux-saga/effects'
 import * as actions from '~/actions'
 import { push } from 'react-router-redux'
@@ -15,7 +16,6 @@ function* pageManageTask() {
     const { currentPage } = yield select()
     const index = currentPage.index - 1
     const page = _.get(slideData.pages, index, _.last(slideData.pages))
-    console.log(index, slideData)
     yield { page, index } |> actions.changePage |> put
   })
   yield takeLatest(actions.changePage, function*({ payload }) {

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { isAdmin, isFirst } from '~/utils'
 import { pageNext, pagePrev } from '~/actions'
+import RerenderBlocker from '~/components/misc/RerenderBlocker'
 
 const ButtonGroup = styled.div`
   position: absolute;
@@ -41,10 +42,11 @@ const Right = styled(Button)`
 const mapToStateProps = state => ({ currentPage: state.currentPage })
 
 const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
-  console.log(currentPage)
   return isAdmin(location.search) ? (
     <div>
-      <Component />
+      <RerenderBlocker>
+        <Component />
+      </RerenderBlocker>
       <ButtonGroup>
         {isFirst() ? null : (
           <Left onClick={props.pagePrev}>
@@ -57,7 +59,9 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
       </ButtonGroup>
     </div>
   ) : (
-    <Component />
+    <RerenderBlocker>
+      <Component />
+    </RerenderBlocker>
   )
 }
 
