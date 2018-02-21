@@ -7,7 +7,7 @@ const Reload = styled.span`
   position: absolute;
   color: rgba(255, 255, 255, 0.6);
   right: 1vw;
-  bottom: 1vw;
+  bottom: 4.5vw;
   width: 5vw;
   height: 5vw;
   text-align: center;
@@ -26,7 +26,7 @@ const Reload = styled.span`
 const Message = styled.span`
   position: absolute;
   right: 6vw;
-  bottom: 1vw;
+  bottom: 4.5vw;
   color: white;
   font-size: 2vw;
 `

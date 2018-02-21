@@ -18,6 +18,7 @@ const Button = styled.a`
   height: 5vw;
   position: absolute;
   text-align: center;
+  font-size: 3.5vw;
   border-radius: 100%;
   background-color: rgba(16, 255, 0, 0.42);
   box-shadow: 0 0 14px 10px #0c3f02;
