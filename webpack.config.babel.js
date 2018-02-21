@@ -108,8 +108,8 @@ class ConfigGenerator {
         hash: false,
         timings: false,
         chunks: false,
-        chunkModules: false
-      }
+        chunkModules: false,
+      },
     }
   }
 

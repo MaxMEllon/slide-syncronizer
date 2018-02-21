@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { isAdmin, isFirst } from '~/utils'
 import { pageNext, pagePrev } from '~/actions'
 import RerenderBlocker from '~/components/misc/RerenderBlocker'
+import ReloadButton from '~/components/ui/ReloadButton'
 
 const ButtonGroup = styled.div`
   position: absolute;
@@ -12,15 +13,15 @@ const ButtonGroup = styled.div`
   height: 18%;
 `
 
-const Button = styled.button`
-  width: 11.4%;
-  height: 100%;
+const Button = styled.a`
+  width: 5vw;
+  height: 5vw;
   position: absolute;
+  text-align: center;
   border-radius: 100%;
   background-color: rgba(16, 255, 0, 0.42);
   box-shadow: 0 0 14px 10px #0c3f02;
   color: white;
-  font-size: 5vw;
   &:active {
     background-color: rgba(16, 255, 0, 0.92);
   }
@@ -39,6 +40,10 @@ const Right = styled(Button)`
   right: 5%;
 `
 
+const Icon = styled.span`
+  margin-top: 12.3%;
+`
+
 const mapToStateProps = state => ({ currentPage: state.currentPage })
 
 const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
@@ -50,16 +55,17 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
       <ButtonGroup>
         {isFirst() ? null : (
           <Left onClick={props.pagePrev}>
-            <span className="fa fa-2x fa-angle-left" />
+            <Icon className="fa fa-angle-left" />
           </Left>
         )}
         <Right onClick={props.pageNext}>
-          <span className="fa fa-2x fa-angle-right" />
+          <Icon className="fa fa-angle-right" />
         </Right>
       </ButtonGroup>
     </div>
   ) : (
     <RerenderBlocker>
+      <ReloadButton />
       <Component />
     </RerenderBlocker>
   )

@@ -11,6 +11,12 @@
     $(npm bin)/saku _ready
     NODE_ENV=development $(npm bin)/webpack-dev-server --watch --progress
 
+# dev-remote
+> Start to develop by webpack-server (for vagrant).
+
+    $(npm bin)/saku _ready
+    NODE_ENV=development $(npm bin)/webpack-dev-server --watch --progress --host 0.0.0.0
+
 # build
 > Build the distribution files by webpack.
 
@@ -42,6 +48,7 @@
     mkdir -p dist/fonts
     cp ./node_modules/reset.css/reset.css dist
     cp ./node_modules/font-awesome/css/font-awesome.min.css dist
+    cp ./node_modules/animate.css/animate.min.css dist
     cp ./node_modules/react/umd/react.development.js dist
     cp ./node_modules/react/umd/react.production.min.js dist
     cp ./node_modules/react-dom/umd/react-dom.development.js dist

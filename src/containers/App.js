@@ -14,13 +14,11 @@ class App extends React.Component {
   render() {
     return (
       <ConnectedRouter history={history}>
-        <RouteCSSTransitionGroup>
-          <Switch>
-            <Route exact path="/" component={SlideMaster(Title)} />
-            <Route path="/1-1" component={PSM(Slide1_1, 'ほげほげ')} />
-            <Route component={SlideMaster(Title)} />
-          </Switch>
-        </RouteCSSTransitionGroup>
+        <Switch>
+          <Route exact path="/" component={SlideMaster(Title)} />
+          <Route path="/1-1" component={PSM(Slide1_1, 'ほげほげ')} />
+          <Route component={SlideMaster(Title)} />
+        </Switch>
       </ConnectedRouter>
     )
   }
