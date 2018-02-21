@@ -99,6 +99,7 @@ class ConfigGenerator {
       host: 'localhost',
       port: 3000,
       historyApiFallback: true,
+      disableHostCheck: true,
       hot: true,
       noInfo: false,
       stats: {

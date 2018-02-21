@@ -5,8 +5,6 @@ env:
 extends:
 - prettier
 - prettier/standard
-- eslint:recommended
-- plugin:react/recommended
 plugins:
 - prettier
 - react
