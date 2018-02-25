@@ -1,5 +1,6 @@
 import _ from 'lodash'
-import { fork, put, call, select, takeLatest } from 'redux-saga/effects'
+import { fork, put, take, call, select, takeLatest } from 'redux-saga/effects'
+import client from 'socket.io-client'
 import { push } from 'react-router-redux'
 import * as actions from '~/actions'
 import { isAdmin } from '~/utils'
@@ -32,6 +33,15 @@ function* pageManageTask() {
   })
 }
 
+function* connectToServerTask() {
+  while (true) {
+    const socket = client.connect(process.env.SERVER_URL)
+    yield { instance: socket } |> actions.connectToServer |> put
+    yield actions.reconnect |> take
+  }
+}
+
 export default function* rootSaga() {
   yield fork(pageManageTask)
+  yield fork(connectToServerTask)
 }

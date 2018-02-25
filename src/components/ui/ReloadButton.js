@@ -1,6 +1,8 @@
 import _ from 'lodash'
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { reconnect } from '~/actions'
 import { classNames } from '~/utils'
 
 const Reload = styled.span`
@@ -31,7 +33,7 @@ const Message = styled.span`
   font-size: 2vw;
 `
 
-export default class ReloadButton extends React.Component {
+class ReloadButton extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -45,6 +47,7 @@ export default class ReloadButton extends React.Component {
   handleClick() {
     const { onClick } = this.props
     if (_.isFunction(onClick)) onClick()
+    this.props.reconnect()
     if (this.state.moving) return
     this.setState({ xlass: 'fa-spin-reverse', moving: true, message: '同期中...' })
     setTimeout(() => this.setState({ xlass: '', moving: false, message: '' }), 2000)
@@ -60,3 +63,5 @@ export default class ReloadButton extends React.Component {
     )
   }
 }
+
+export default connect(state => ({ socket: state.socket }), { reconnect })(ReloadButton)

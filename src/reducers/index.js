@@ -10,6 +10,9 @@ export const initialState = {
     page: _.first(data.pages),
     index: 0,
   },
+  socket: {
+    instance: null,
+  },
 }
 
 const currentPage = createReducer(
@@ -19,7 +22,15 @@ const currentPage = createReducer(
   initialState.currentPage,
 )
 
+const socket = createReducer(
+  {
+    [actions.connectToServer]: (_1, payload) => payload,
+  },
+  initialState.socket,
+)
+
 export default combineReducers({
   currentPage,
   router,
+  socket,
 })
