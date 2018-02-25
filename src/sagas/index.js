@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { fork, put, take, call, select, takeLatest } from 'redux-saga/effects'
+import { fork, put, take, call, select, takeLatest, takeEvery } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import client from 'socket.io-client'
 import { push } from 'react-router-redux'
@@ -50,12 +50,19 @@ function* commentManageTask() {
 }
 
 function* connectToServerTask() {
+  let once = false
   while (true) {
-    const socket = client.connect(process.env.SERVER_URL, { transports: ['websocket'] })
-    socketInitalize(socket)
-    yield { instance: socket } |> actions.connectToServer |> put
+    const { socket } = yield select()
+    const s =
+      socket.instance || client.connect(process.env.SERVER_URL, { transports: ['websocket'] })
+    if (!once) {
+      socketInitalize(s)
+      once = true
+    }
+    yield delay(100)
+    s.emit('page/sync')
+    yield { instance: s } |> actions.connectToServer |> put
     yield actions.reconnect |> take
-    socket.emit('page/sync')
   }
 }
 

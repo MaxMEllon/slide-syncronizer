@@ -2,7 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import styled from 'styled-components'
 import store from '~/stores'
-
+import CommentList from '~/components/comment-stream'
 import App from './App'
 
 const Background = styled.div`
@@ -36,6 +36,7 @@ export default class EntryPoint extends React.Component {
         <Background>
           <Wrapper>
             <Content>
+              <CommentList />
               <App />
             </Content>
           </Wrapper>

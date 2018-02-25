@@ -10,6 +10,7 @@ const ButtonGroup = styled.div`
   bottom: 3%;
   width: 100%;
   height: 18%;
+  z-index: 1000;
 `
 
 const Button = styled.a`

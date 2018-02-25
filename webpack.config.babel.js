@@ -92,7 +92,11 @@ class ConfigGenerator {
       .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
       .add(new HappyPack(HappyPackOpt))
       .add(new webpack.optimize.CommonsChunkPlugin(CommonsChunkPluginOpt))
-      .add(new ExtractTextPlugin('bundle.css'))
+      .add(new ExtractTextPlugin({
+        filename: 'bundle.css',
+        disable: false,
+        allChunks:true
+      }))
     if (this.dev)
       plugins
         .add(new webpack.HotModuleReplacementPlugin())

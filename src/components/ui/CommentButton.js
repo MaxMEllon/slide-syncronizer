@@ -27,6 +27,7 @@ const Input = styled.input`
   line-height: 10vh;
   margin-top: 1.3vw;
   margin-left: 6vw;
+  font-size: 5vh;
   width: 55vw;
   background-color: white;
 `
@@ -85,14 +86,16 @@ class CommentButton extends React.Component {
   }
 
   handlePost() {
+    if (this.state.posted) return
     this.props.postComment({ comment: this.state.comment })
-    this.setState({ commentFormXlass: 'animated fadeOut' })
+    this.setState({ commentFormXlass: 'animated fadeOut', posted: true })
     setTimeout(
       () =>
         this.setState({
           open: false,
           comment: '',
           commentFormXlass: 'animated fadeIn',
+          posted: false,
         }),
       500,
     )

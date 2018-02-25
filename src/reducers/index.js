@@ -3,6 +3,8 @@ import { combineReducers } from 'redux'
 import { createReducer } from 'redux-act'
 import { routerReducer as router } from 'react-router-redux'
 import * as actions from '~/actions'
+import List from '~/models/List'
+import Comment from '~/models/Comment'
 import data from '~/constants/slide.json'
 
 export const initialState = {
@@ -12,6 +14,9 @@ export const initialState = {
   },
   socket: {
     instance: null,
+  },
+  comments: {
+    list: new List(),
   },
 }
 
@@ -30,8 +35,23 @@ const socket = createReducer(
   initialState.socket,
 )
 
+const comments = createReducer(
+  {
+    [actions.recieveComment]: (state, payload) => {
+      const comment = new Comment(payload.comment)
+      return { list: state.list.push(comment) }
+    },
+    [actions.disposeComment]: (state, payload) => {
+      console.log(state.list)
+      return { list: state.list.remove(payload.id) }
+    },
+  },
+  initialState.comments,
+)
+
 export default combineReducers({
   currentPage,
   router,
   socket,
+  comments,
 })

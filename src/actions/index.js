@@ -11,3 +11,5 @@ export const reconnect = createAction('start reconnect')
 
 // comment
 export const postComment = createAction('post comment to server')
+export const recieveComment = createAction('recieve comment from server')
+export const disposeComment = createAction('dispose comment')
