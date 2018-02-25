@@ -1,6 +1,16 @@
 const parse = json => JSON.parse(json)
 
 export default class List extends Array {
+  [Symbol.toPrimitive](hint) {
+    if (hint === 'string') {
+      return `[${this.join(',')}]`
+    }
+    if (hint === 'number') {
+      return NaN
+    }
+    return this.toString()
+  }
+
   clone() {
     return new List(...super.map(i => i))
   }
