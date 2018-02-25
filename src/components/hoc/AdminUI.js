@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { isAdmin, isFirst } from '~/utils'
-import { pageNext, pagePrev } from '~/actions'
+import { pageMove } from '~/actions'
 import RerenderBlocker from '~/components/misc/RerenderBlocker'
 import ReloadButton from '~/components/ui/ReloadButton'
 
@@ -55,11 +55,11 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
       </RerenderBlocker>
       <ButtonGroup>
         {isFirst() ? null : (
-          <Left onClick={props.pagePrev}>
+          <Left onClick={() => props.pageMove('prev')}>
             <Icon className="fa fa-angle-left" />
           </Left>
         )}
-        <Right onClick={props.pageNext}>
+        <Right onClick={() => props.pageMove('next')}>
           <Icon className="fa fa-angle-right" />
         </Right>
       </ButtonGroup>
@@ -72,5 +72,4 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
   )
 }
 
-export default Component =>
-  connect(mapToStateProps, { pageNext, pagePrev })(AdminUIGenerator(Component))
+export default Component => connect(mapToStateProps, { pageMove })(AdminUIGenerator(Component))
