@@ -41,16 +41,26 @@ function* pageManageTask() {
   })
 }
 
+function* commentManageTask() {
+  yield takeLatest(actions.postComment, function*(action) {
+    const { socket } = yield select()
+    const comment = action.payload.comment
+    socket.instance?.emit('comment/post', { comment })
+  })
+}
+
 function* connectToServerTask() {
   while (true) {
-    const socket = client.connect(process.env.SERVER_URL)
+    const socket = client.connect(process.env.SERVER_URL, { transports: ['websocket'] })
     socketInitalize(socket)
     yield { instance: socket } |> actions.connectToServer |> put
     yield actions.reconnect |> take
+    socket.emit('page/sync')
   }
 }
 
 export default function* rootSaga() {
   yield fork(pageManageTask)
+  yield fork(commentManageTask)
   yield fork(connectToServerTask)
 }

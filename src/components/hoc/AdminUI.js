@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { isAdmin, isFirst } from '~/utils'
 import { pageMove } from '~/actions'
 import RerenderBlocker from '~/components/misc/RerenderBlocker'
-import ReloadButton from '~/components/ui/ReloadButton'
 
 const ButtonGroup = styled.div`
   position: absolute;
@@ -66,7 +65,6 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
     </div>
   ) : (
     <RerenderBlocker>
-      <ReloadButton />
       <Component />
     </RerenderBlocker>
   )

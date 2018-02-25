@@ -8,3 +8,6 @@ export const syncCurrentPage = createAction('synchronize current page')
 // socket
 export const connectToServer = createAction('connect to server')
 export const reconnect = createAction('start reconnect')
+
+// comment
+export const postComment = createAction('post comment to server')

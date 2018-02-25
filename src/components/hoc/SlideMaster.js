@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import AdminUI from './AdminUI'
 import data from '~/constants/my.json'
+import ReloadButton from '~/components/ui/ReloadButton'
+import CommentButton from '~/components/ui/CommentButton'
 
 const Header = styled.div`
   color: white;
@@ -20,6 +22,8 @@ export default Component =>
             {data.student_num} {data.event_ja} {data.date}
           </Header>
           <Component />
+          <CommentButton />
+          <ReloadButton />
         </div>
       )
     }
