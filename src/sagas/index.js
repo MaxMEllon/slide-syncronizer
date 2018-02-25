@@ -15,7 +15,6 @@ const rotateIndexToLeft = currentIndex => {
 function* pageManageTask() {
   yield takeLatest(actions.pageNext, function*() {
     const { currentPage } = yield select()
-    console.log(slideData.pages.length)
     const index = (currentPage.index + 1) % slideData.pages.length
     const page = _.get(slideData.pages, index, _.first(slideData.pages))
     yield { page, index } |> actions.changePage |> put

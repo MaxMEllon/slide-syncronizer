@@ -1,3 +1,4 @@
+import { flatten } from 'lodash'
 import path from 'path'
 import webpack from 'webpack'
 import Dotenv from 'dotenv-webpack'
@@ -5,6 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import WebpackNotifier from 'webpack-notifier'
 import HappyPack from 'happypack'
 import CompressionPlugin from 'compression-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
 const loaders = {
   babel() {
@@ -15,6 +17,27 @@ const loaders = {
         loader: 'babel-loader?cacheDirectory=true',
       },
     }
+  },
+  css() {
+    return {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader'],
+      }),
+    }
+  },
+  font() {
+    return [
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader',
+      },
+    ]
   },
   HappyPack() {
     return {
@@ -69,6 +92,7 @@ class ConfigGenerator {
       .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
       .add(new HappyPack(HappyPackOpt))
       .add(new webpack.optimize.CommonsChunkPlugin(CommonsChunkPluginOpt))
+      .add(new ExtractTextPlugin('bundle.css'))
     if (this.dev)
       plugins
         .add(new webpack.HotModuleReplacementPlugin())
@@ -125,7 +149,7 @@ class ConfigGenerator {
 
   get module() {
     return {
-      rules: [loaders.HappyPack()],
+      rules: flatten([loaders.css(), loaders.font(), loaders.HappyPack()]),
     }
   }
 

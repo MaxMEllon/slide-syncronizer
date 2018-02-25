@@ -52,7 +52,6 @@
     rm -rf dist
     mkdir -p dist/fonts
     cp ./node_modules/reset.css/reset.css                       dist
-    cp ./node_modules/font-awesome/css/font-awesome.min.css     dist
     cp ./node_modules/animate.css/animate.min.css               dist
     cp ./node_modules/react/umd/react.development.js            dist
     cp ./node_modules/react/umd/react.production.min.js         dist

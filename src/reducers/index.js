@@ -24,7 +24,8 @@ const currentPage = createReducer(
 
 const socket = createReducer(
   {
-    [actions.connectToServer]: (_1, payload) => payload,
+    [actions.connectToServer]: (state, payload) =>
+      state.instance?.connected !== payload.instance?.connected ? payload : state,
   },
   initialState.socket,
 )
