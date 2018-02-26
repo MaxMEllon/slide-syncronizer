@@ -13,3 +13,7 @@ export const reconnect = createAction('start reconnect')
 export const postComment = createAction('post comment to server')
 export const recieveComment = createAction('recieve comment from server')
 export const disposeComment = createAction('dispose comment')
+
+// canvas
+export const drawLineRemote = createAction('draw the remote canvas')
+export const syncCanvas = createAction('sync remote canvas')

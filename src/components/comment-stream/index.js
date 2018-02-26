@@ -8,12 +8,12 @@ import { classNames } from '~/utils'
 const Text = styled.span`
   position: absolute;
   font-size: 4vw;
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.6);
   height: 4vw;
   width: 500vw;
   left: -100%;
   top: calc(${({ top }) => top % 6} * 6vw);
-  animation: moveToLeft 9s linear 0s 1;
+  animation: moveToLeft 12s linear 0s 1;
 
   @keyframes moveToLeft {
     0% {

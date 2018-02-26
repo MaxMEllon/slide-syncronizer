@@ -36,7 +36,7 @@ function* pageManageTask() {
     const { currentPage, router } = yield select()
     if (currentPage.index === payload.index) {
       const pathname = `/${payload.page}`
-      yield { pathname, search: router.location.search } |> push |> put
+      yield { pathname, search: router.location?.search } |> push |> put
     }
   })
 }
@@ -66,8 +66,17 @@ function* connectToServerTask() {
   }
 }
 
+function* canvasTask() {
+  yield takeEvery(actions.drawLineRemote, function*(action) {
+    const { socket } = yield select()
+    const { payload } = action
+    socket.instance.emit('canvas/drawLine', payload)
+  })
+}
+
 export default function* rootSaga() {
   yield fork(pageManageTask)
   yield fork(commentManageTask)
   yield fork(connectToServerTask)
+  yield fork(canvasTask)
 }

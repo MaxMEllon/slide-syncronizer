@@ -18,6 +18,10 @@ export const initialState = {
   comments: {
     list: new List(),
   },
+  canvas: {
+    x: '',
+    y: '',
+  },
 }
 
 const currentPage = createReducer(
@@ -42,11 +46,17 @@ const comments = createReducer(
       return { list: state.list.push(comment) }
     },
     [actions.disposeComment]: (state, payload) => {
-      console.log(state.list)
       return { list: state.list.remove(payload.id) }
     },
   },
   initialState.comments,
+)
+
+const canvas = createReducer(
+  {
+    [actions.syncCanvas]: (state, payload) => ({ ...payload }),
+  },
+  initialState.canvas,
 )
 
 export default combineReducers({
@@ -54,4 +64,5 @@ export default combineReducers({
   router,
   socket,
   comments,
+  canvas,
 })

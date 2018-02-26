@@ -42,8 +42,18 @@
         transform: rotate(359deg);
       }
     }
-    body {
+    html, body {
+      height: 100%;
+      overflow: hidden;
       font-family: 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+    }
+    #root {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: auto;
     }
     * {
       cursor: default;
