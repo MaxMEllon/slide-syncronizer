@@ -17,14 +17,14 @@ export default Component =>
   class extends React.Component {
     render() {
       return (
-        <div>
+        <>
           <Header>
             {data.student_num} {data.event_ja} {data.date}
           </Header>
           <Component />
           <CommentButton />
           <ReloadButton />
-        </div>
+        </>
       )
     }
   } |> AdminUI

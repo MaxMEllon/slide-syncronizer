@@ -49,7 +49,7 @@ const mapToStateProps = state => ({ currentPage: state.currentPage })
 
 const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
   return isAdmin(location.search) ? (
-    <div>
+    <>
       <RerenderBlocker>
         <Component />
       </RerenderBlocker>
@@ -63,7 +63,7 @@ const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
           <Icon className="fa fa-angle-right" />
         </Right>
       </ButtonGroup>
-    </div>
+    </>
   ) : (
     <RerenderBlocker>
       <Component />

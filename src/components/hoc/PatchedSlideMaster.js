@@ -23,14 +23,14 @@ export default (Component, title) =>
     render() {
       const slideNum = getSlideNum()
       return (
-        <div>
+        <>
           <Title>
             <P>
               {slideNum} {title}
             </P>
           </Title>
           <Component />
-        </div>
+        </>
       )
     }
   } |> SlideMaster

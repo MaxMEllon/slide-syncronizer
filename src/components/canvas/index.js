@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux'
@@ -9,14 +10,16 @@ const StyledCanvas = styled.canvas`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  z-index: 500;
 `
 
 class Canvas extends React.Component {
   constructor(props) {
     super(props)
+    this.x = ''
+    this.y = ''
     this.state = {
       dragging: false,
     }
@@ -24,39 +27,55 @@ class Canvas extends React.Component {
     this.onUp = this.onUp.bind(this)
     this.onMove = this.onMove.bind(this)
     this.drawLine = this.drawLine.bind(this)
+    this.onMoveTouch = this.onMoveTouch.bind(this)
+    this.resetMousePosition = this.resetMousePosition.bind(this)
     this.resetMousePosition()
   }
 
   componentDidMount() {
     this.canvas = ReactDOM.findDOMNode(this)
-    if (isAdmin(this.props.router.location.search)) {
+    if (this.isAdmin) {
       this.canvas.addEventListener('mousedown', this.onDown, false)
       this.canvas.addEventListener('mouseup', this.onUp, false)
       this.canvas.addEventListener('mousemove', this.onMove, false)
+
+      this.canvas.addEventListener('touchstart', this.onDown, false)
+      this.canvas.addEventListener('touchmove', this.onMoveTouch, false)
+      this.canvas.addEventListener('touchend', this.onUp, false)
+      this.canvas.addEventListener('touchchancel', this.onUp, false)
     }
-    const context = this.canvas.getContext('2d')
-    context.beginPath()
   }
 
   componentWillReceiveProps(nextProps) {
-    const { canvasData } = nextProps
+    const { canvasData, socket, width, height } = nextProps
     const context = this.canvas.getContext('2d')
-    this.drawLine(context, canvasData.x * window.innerWidth, canvasData.y * window.innerHeight)
+    this.drawLine(context, canvasData.x * width, canvasData.y * height)
+    if (socket.instance && !this.once) {
+      socket.instance.on('canvas/upPen', this.resetMousePosition)
+      this.once = true
+    }
+    if (this.props.router?.location.pathname !== nextProps.router?.location.pathname) {
+      this.resetMousePosition()
+    }
+  }
+
+  get isAdmin() {
+    return isAdmin(this.props.router.location.search)
   }
 
   drawLine(context, x, y) {
-    context.beginPath()
-    context.lineCap = 'round'
-    context.strokeStyle = 'rgb(255, 0, 0)'
-    context.lineWidth = 2
     if (this.x === '') {
       context.moveTo(x, y)
     } else {
       context.moveTo(this.x, this.y)
     }
+    context.grobalAlpha = 0.01
+    context.lineCap = 'round'
+    context.strokeStyle = 'rgba(255, 247, 0, 0.01)'
+    context.lineWidth = 4
     context.lineTo(x, y)
     context.stroke()
-    this.updateLastMousePosition(this.x, this.y, x, y)
+    this.updateLastMousePosition(x, y)
   }
 
   resetMousePosition() {
@@ -64,13 +83,18 @@ class Canvas extends React.Component {
     this.y = ''
   }
 
-  updateLastMousePosition(prevX, prevY, x, y) {
+  updateLastMousePosition(x, y) {
     this.x = x
     this.y = y
   }
 
-  onDown(event) {
+  onDown() {
     this.setState({ dragging: true })
+  }
+
+  onMoveTouch(event) {
+    const target = _.last(event.changedTouches)
+    this.onMove(target)
   }
 
   onMove(event) {
@@ -81,25 +105,31 @@ class Canvas extends React.Component {
     const y = event.clientY - offsetY
     if (this.state.dragging) {
       this.drawLine(context, x, y)
-      // if (isAdmin(this.props.router.location.search)) {
-      this.props.drawLineRemote({
-        x: x / window.innerWidth,
-        y: y / window.innerHeight,
-      })
-      // }
+      if (this.isAdmin) {
+        this.props.drawLineRemote({
+          x: x / this.props.width,
+          y: y / this.props.height,
+        })
+      }
     }
   }
 
   onUp(event) {
     this.setState({ dragging: false })
     this.resetMousePosition()
+    this.props.socket.instance.emit('canvas/onUp')
   }
 
   render() {
-    return <StyledCanvas id="canvas" width={window.innerWidth} height={window.innerHeight} />
+    const { width, height } = this.props
+    return <StyledCanvas id="canvas" width={width} height={height} />
   }
 }
 
-const mapToStateProps = state => ({ canvasData: state.canvas, router: state.router })
+const mapToStateProps = state => ({
+  canvasData: state.canvas,
+  router: state.router,
+  socket: state.socket,
+})
 
 export default connect(mapToStateProps, { drawLineRemote })(Canvas)

@@ -36,7 +36,7 @@ const Email = styled.div`
 `
 
 export default () => (
-  <div>
+  <>
     <MainTitle>{data.title}</MainTitle>
     <SubTitle>
       {data.org}
@@ -45,5 +45,5 @@ export default () => (
       {data.student_num} {data.name_en}
     </SubTitle>
     <Email>Email: {data.email}</Email>
-  </div>
+  </>
 )

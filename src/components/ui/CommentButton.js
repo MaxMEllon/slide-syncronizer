@@ -104,14 +104,14 @@ class CommentButton extends React.Component {
   render() {
     const xlass = classNames('fa fa-comment', this.state.xlass)
     return this.state.open ? (
-      <div>
+      <>
         <Block className={this.state.commentFormXlass}>
           <Input type="text" value={this.state.comment} onChange={this.handleInput} />
           <Submit className="fa fa-pencil" onClick={this.handlePost} />
           <Close className="fa fa-close" onClick={this.handleCloseCommentForm} />
         </Block>
         <Comment className={xlass} onClick={this.handleClick} />
-      </div>
+      </>
     ) : (
       <Comment className={xlass} onClick={this.handleClick} />
     )

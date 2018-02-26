@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import styled from 'styled-components'
 import store from '~/stores'
@@ -9,7 +10,7 @@ import App from './App'
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: white;
+  background-color: black;
   overflow: hidden;
 `
 
@@ -31,15 +32,28 @@ const Content = styled.div`
 `
 
 export default class EntryPoint extends React.Component {
+  state = {
+    width: 0,
+    height: 0,
+  }
+
+  componentDidMount() {
+    const $dom = ReactDOM.findDOMNode(this.wrapper)
+    this.setState({
+      width: $dom.offsetWidth,
+      height: $dom.offsetHeight,
+    })
+  }
+
   render() {
     return (
       <Provider store={store}>
         <Background>
-          <Wrapper>
+          <Wrapper ref={c => (this.wrapper = c)}>
             <Content>
               <CommentList />
               <App />
-              <Canvas />
+              <Canvas width={this.state.width} height={this.state.height} />
             </Content>
           </Wrapper>
         </Background>

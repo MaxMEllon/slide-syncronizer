@@ -40,11 +40,11 @@ export default class H1 extends React.Component {
     const { underline } = this.state
     const newProps = Object.assign({}, props, { underline })
     return (
-      <div>
+      <>
         <_H1 {...props} underline={underline} onClick={this.handleClick}>
           {children}
         </_H1>
-      </div>
+      </>
     )
   }
 }
