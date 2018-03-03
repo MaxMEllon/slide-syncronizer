@@ -19,7 +19,7 @@ const P = styled.p`
 const getSlideNum = () => window.location.pathname.replace('/', '')
 
 export default (Component, title) =>
-  class extends React.Component {
+  class extends React.unstable_AsyncComponent {
     render() {
       const slideNum = getSlideNum()
       return (

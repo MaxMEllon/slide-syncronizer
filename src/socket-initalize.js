@@ -7,4 +7,8 @@ export default function socketInitalize(socket) {
   socket.on('page/update', payload => payload |> json |> changePage |> store.dispatch)
   socket.on('comment/stream', payload => payload |> json |> recieveComment |> store.dispatch)
   socket.on('canvas/update', payload => payload |> json |> syncCanvas |> store.dispatch)
+  socket.on('canvas/clear', () => {
+    const $context = document.querySelector('canvas')?.getContext('2d')
+    $context?.clearRect(0, 0, $context.width, $context.height)
+  })
 }

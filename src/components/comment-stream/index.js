@@ -26,7 +26,7 @@ const Text = styled.span`
   }
 `
 
-class Comment extends React.Component {
+class Comment extends React.unstable_AsyncComponent {
   constructor(props) {
     super(props)
     this.handleWillDispose = this.handleWillDispose.bind(this)

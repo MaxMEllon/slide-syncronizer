@@ -17,7 +17,7 @@ const _H1 = styled.h1`
       `};
 `
 
-export default class H1 extends React.Component {
+export default class H1 extends React.unstable_AsyncComponent {
   constructor(props) {
     super(props)
     this.state = {

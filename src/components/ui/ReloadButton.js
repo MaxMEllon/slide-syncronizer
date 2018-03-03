@@ -11,7 +11,7 @@ const Reload = styled(IconBasedButton)`
   bottom: 6vw;
 `
 
-class ReloadButton extends React.Component {
+class ReloadButton extends React.unstable_AsyncComponent {
   constructor(props) {
     super(props)
     this.state = {

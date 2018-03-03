@@ -27,7 +27,7 @@ export default class List extends Array {
   }
 
   pushFromJSON(json) {
-    this.push(parse(json))
+    return json |> parse |> this.push
   }
 
   get json() {
