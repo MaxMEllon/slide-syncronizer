@@ -15,20 +15,11 @@ const StyledCanvas = styled.canvas`
   z-index: 500;
 `
 
-const drawLine = context => {
-  context.beginPath()
-  context.grobalAlpha = 0.01
-  context.lineCap = 'round'
-  context.strokeStyle = 'rgba(255, 247, 0, 0.01)'
-  context.lineWidth = 4
-  context.lineTo(x, y)
-  context.stroke()
-  context.endPath()
-}
-
-class Canvas extends React.unstable_AsyncComponent {
+class Canvas extends React.Component {
   constructor(props) {
     super(props)
+    this.x = ''
+    this.y = ''
     this.state = {
       dragging: false,
     }
@@ -43,7 +34,6 @@ class Canvas extends React.unstable_AsyncComponent {
 
   componentDidMount() {
     this.canvas = ReactDOM.findDOMNode(this)
-    this.context = this.canvas.getContext('2d')
     if (this.isAdmin) {
       this.canvas.addEventListener('mousedown', this.onDown, false)
       this.canvas.addEventListener('mouseup', this.onUp, false)
@@ -58,7 +48,8 @@ class Canvas extends React.unstable_AsyncComponent {
 
   componentWillReceiveProps(nextProps) {
     const { canvasData, socket, width, height } = nextProps
-    this.drawLine(canvasData.x * width, canvasData.y * height)
+    const context = this.canvas.getContext('2d')
+    this.drawLine(context, canvasData.x * width, canvasData.y * height)
     if (socket.instance && !this.once) {
       socket.instance.on('canvas/upPen', this.resetMousePosition)
       this.once = true
@@ -72,13 +63,18 @@ class Canvas extends React.unstable_AsyncComponent {
     return isAdmin(this.props.router.location.search)
   }
 
-  drawLine(x, y) {
+  drawLine(context, x, y) {
     if (this.x === '') {
-      this.context.moveTo(x, y)
+      context.moveTo(x, y)
     } else {
-      this.context.moveTo(this.x, this.y)
+      context.moveTo(this.x, this.y)
     }
-    drawLine(this.context)
+    context.grobalAlpha = 0.01
+    context.lineCap = 'round'
+    context.strokeStyle = 'rgba(255, 247, 0, 0.01)'
+    context.lineWidth = 4
+    context.lineTo(x, y)
+    context.stroke()
     this.updateLastMousePosition(x, y)
   }
 
@@ -97,23 +93,25 @@ class Canvas extends React.unstable_AsyncComponent {
   }
 
   onMoveTouch(event) {
-    for (const target of event.changedTouches) {
-      this.onMove(target)
-    }
+    const target = _.last(event.changedTouches)
+    this.onMove(target)
   }
 
   onMove(event) {
-    if (!this.state.dragging) return
-
-    const { left, top } = this.canvas.getBoundingClientRect()
-    const x = event.clientX - left
-    const y = event.clientY - top
-
-    this.drawLine(x, y)
-    this.props.drawLineRemote({
-      x: (x / this.props.width).toFixed(2),
-      y: (y / this.props.height).toFixed(2),
-    })
+    const context = this.canvas.getContext('2d')
+    const offsetX = this.canvas.getBoundingClientRect().left
+    const offsetY = this.canvas.getBoundingClientRect().top
+    const x = event.clientX - offsetX
+    const y = event.clientY - offsetY
+    if (this.state.dragging) {
+      this.drawLine(context, x, y)
+      if (this.isAdmin) {
+        this.props.drawLineRemote({
+          x: x / this.props.width,
+          y: y / this.props.height,
+        })
+      }
+    }
   }
 
   onUp(event) {

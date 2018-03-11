@@ -1,23 +1,18 @@
 import _ from 'lodash'
+import axios from 'axios'
 import { fork, put, take, call, select, takeLatest, takeEvery } from 'redux-saga/effects'
 import { delay } from 'redux-saga'
 import client from 'socket.io-client'
 import { push } from 'react-router-redux'
 import * as actions from '~/actions'
 import { isAdmin } from '~/utils'
-import slideData from '~/constants/slide.json'
 import socketInitalize from '~/socket-initalize'
 
-const rotateIndexToLeft = currentIndex => {
-  const index = currentIndex - 1
-  if (index === -1) return slideData.pages.length - 1
+const rotateIndexToLeft = currentPage => {
+  const index = currentPage.index - 1
+  if (index === -1) return currentPage.pages.length - 1
   return index
 }
-
-const rotatePage = (action, index) =>
-  action === 'prev'
-    ? _.get(slideData.pages, index, _.last(slideData.pages))
-    : _.get(slideData.pages, index, _.first(slideData.pages))
 
 function* pageManageTask() {
   yield takeLatest(actions.pageMove, function*(action) {
@@ -25,17 +20,16 @@ function* pageManageTask() {
     const { payload } = action
     const index =
       payload === 'prev'
-        ? rotateIndexToLeft(currentPage.index)
-        : (currentPage.index + 1) % slideData.pages.length
-    const page = rotatePage(payload, index)
-    const nextPayload = { page, index }
+        ? rotateIndexToLeft(currentPage)
+        : (currentPage.index + 1) % currentPage.pages.length
+    const nextPayload = index
     socket.instance?.emit('page/update', nextPayload)
     yield nextPayload |> actions.changePage |> put
   })
   yield takeLatest(actions.changePage, function*({ payload }) {
     const { currentPage, router } = yield select()
-    if (currentPage.index === payload.index) {
-      const pathname = `/${payload.page}`
+    if (currentPage.index === payload) {
+      const pathname = `/${payload}`
       yield { pathname, search: router.location?.search } |> push |> put
     }
   })
@@ -54,7 +48,8 @@ function* connectToServerTask() {
   while (true) {
     const { socket } = yield select()
     const s =
-      socket.instance || client.connect(process.env.SERVER_URL, { transports: ['websocket'] })
+      socket.instance ||
+      client.connect(process.env.SERVER_SOCKET_URL, { transports: ['websocket'] })
     if (!once) {
       socketInitalize(s)
       once = true
@@ -74,7 +69,26 @@ function* canvasTask() {
   })
 }
 
+const fetchPages = () => {
+  const url = `${process.env.SERVER_REST_URL}/pages`
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(res => resolve(res.data))
+      .catch(err => reject(err))
+  })
+}
+
 export default function* rootSaga() {
+  try {
+    const pages = yield call(fetchPages)
+    yield pages |> actions.fetchPages |> put
+    pages.forEach((url, index) =>
+      setTimeout(() => (new Image().src = `${process.env.SERVER_REST_URL}${url}`), 1000 * index),
+    )
+  } catch (err) {
+    yield err |> actions.failureConnectToServer |> put
+  }
   yield fork(pageManageTask)
   yield fork(commentManageTask)
   yield fork(connectToServerTask)

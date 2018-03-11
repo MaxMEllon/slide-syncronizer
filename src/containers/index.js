@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { hot } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import styled from 'styled-components'
 import store from '~/stores'
@@ -31,7 +32,7 @@ const Content = styled.div`
   margin: 20px;
 `
 
-export default class EntryPoint extends React.Component {
+class EntryPoint extends React.Component {
   state = {
     width: 0,
     height: 0,
@@ -61,3 +62,5 @@ export default class EntryPoint extends React.Component {
     )
   }
 }
+
+export default hot(module)(EntryPoint)

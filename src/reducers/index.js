@@ -9,8 +9,8 @@ import data from '~/constants/slide.json'
 
 export const initialState = {
   currentPage: {
-    page: _.first(data.pages),
-    index: 0,
+    pages: null,
+    index: 'title',
   },
   socket: {
     instance: null,
@@ -26,7 +26,11 @@ export const initialState = {
 
 const currentPage = createReducer(
   {
-    [actions.changePage]: (_1, payload) => payload,
+    [actions.fetchPages]: (state, payload) => {
+      const nextState = Object.assign({}, state, { pages: payload })
+      return nextState
+    },
+    [actions.changePage]: (state, payload) => Object.assign({}, state, { index: payload }),
   },
   initialState.currentPage,
 )

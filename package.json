@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "animate.css": "^3.6.1",
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
     "font-awesome": "^4.7.0",

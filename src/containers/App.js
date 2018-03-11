@@ -1,27 +1,46 @@
 import React from 'react'
-import { hot } from 'react-hot-loader'
-import styled from 'styled-components'
+import { connect } from 'react-redux'
 import RouteCSSTransitionGroup from './RouteCSSTransitionGroup'
 import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import Title from '~/components/title'
-import Slide1_1 from '~/components/section1/Slide1'
+import Slide from '~/components/Slide'
 import SlideMaster from '~/components/hoc/SlideMaster'
-import PSM from '~/components/hoc/PatchedSlideMaster'
+import AdminUI from '~/components/hoc/AdminUI'
 import history from '~/utils/history'
+
+const MyRouting = ({ pages }) => {
+  let result = []
+  result.push(<Route key="title" exact path="/" component={AdminUI(SlideMaster(Title))} />)
+  pages.forEach((url, index) =>
+    result.push(
+      <Route
+        key={index}
+        path={`/${index}`}
+        component={AdminUI(SlideMaster(props => <Slide url={url} {...props} />))}
+      />,
+    ),
+  )
+  // result.push(<Route key="default" component={AdminUI(SlideMaster(Title))} />)
+  return result
+}
 
 class App extends React.Component {
   render() {
+    const { pages } = this.props
+    if (!pages) return
     return (
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={SlideMaster(Title)} />
-          <Route path="/1-1" component={PSM(Slide1_1, 'ほげほげ')} />
-          <Route component={SlideMaster(Title)} />
+          <MyRouting pages={pages} />
         </Switch>
       </ConnectedRouter>
     )
   }
 }
 
-export default hot(module)(App)
+const mapToStateProps = state => ({
+  pages: state.currentPage.pages,
+})
+
+export default connect(mapToStateProps)(App)

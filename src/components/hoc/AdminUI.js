@@ -21,7 +21,6 @@ const Button = styled.a`
   font-size: 3.5vw;
   border-radius: 100%;
   background-color: rgba(16, 255, 0, 0.42);
-  box-shadow: 0 0 14px 10px #0c3f02;
   color: white;
   &:active {
     background-color: rgba(16, 255, 0, 0.92);
@@ -47,8 +46,8 @@ const Icon = styled.span`
 
 const mapToStateProps = state => ({ currentPage: state.currentPage })
 
-const AdminUIGenerator = Component => ({ location, currentPage, ...props }) => {
-  return isAdmin(location.search) ? (
+const AdminUIGenerator = Component => ({ currentPage, ...props }) => {
+  return isAdmin(window.location.search) ? (
     <>
       <RerenderBlocker>
         <Component />
