@@ -25,8 +25,8 @@ export default Component =>
               {data.student_num} {data.event_ja} {data.date}
             </Header>
             <Component />
-            {isAdmin(window.location.search) ? <RefreshButton /> : null}
             <CommentButton />
+            {isAdmin(window.location.search) ? <RefreshButton /> : null}
           </>
         )
       }

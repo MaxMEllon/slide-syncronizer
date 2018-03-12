@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import IconBasedButton from './IconBasedButton'
 
 const Reload = styled(IconBasedButton)`
-  right: 11vw;
-  bottom: 6vw;
+  right: 20vw;
+  top: 6vw;
 `
 
 class RefreshButton extends React.unstable_AsyncComponent {
