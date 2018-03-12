@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import AdminUI from './AdminUI'
 import data from '~/constants/my.json'
-import ReloadButton from '~/components/ui/ReloadButton'
 import CommentButton from '~/components/ui/CommentButton'
+import RefreshButton from '~/components/ui/RefreshButton'
+import { isAdmin } from '~/utils'
 
 const Header = styled.div`
   color: white;
@@ -22,8 +23,8 @@ export default Component =>
             {data.student_num} {data.event_ja} {data.date}
           </Header>
           <Component />
+          {isAdmin(window.location.search) ? <RefreshButton /> : null}
           <CommentButton />
-          <ReloadButton />
         </>
       )
     }

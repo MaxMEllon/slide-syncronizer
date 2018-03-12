@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
-import Title from '~/components/title'
+import Preloader from '~/components/preloader'
 import Slide from '~/components/Slide'
 import SlideMaster from '~/components/hoc/SlideMaster'
 import AdminUI from '~/components/hoc/AdminUI'
@@ -10,7 +10,7 @@ import history from '~/utils/history'
 
 const MyRouting = ({ pages }) => {
   let result = []
-  result.push(<Route key="title" exact path="/" component={AdminUI(SlideMaster(Title))} />)
+  result.push(<Route key="title" exact path="/" component={Preloader} />)
   pages?.forEach((url, index) =>
     result.push(
       <Route
@@ -20,7 +20,6 @@ const MyRouting = ({ pages }) => {
       />,
     ),
   )
-  // result.push(<Route key="default" component={AdminUI(SlideMaster(Title))} />)
   return result
 }
 

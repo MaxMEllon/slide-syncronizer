@@ -26,10 +26,7 @@ export const initialState = {
 
 const currentPage = createReducer(
   {
-    [actions.fetchPages]: (state, payload) => {
-      const nextState = Object.assign({}, state, { pages: payload })
-      return nextState
-    },
+    [actions.fetchPages]: (state, payload) => Object.assign({}, state, { pages: payload }),
     [actions.changePage]: (state, payload) => Object.assign({}, state, { index: payload }),
   },
   initialState.currentPage,

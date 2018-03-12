@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
+import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { classNames } from '~/utils'
@@ -24,10 +25,10 @@ const Block = styled.div`
 `
 
 const Input = styled.input`
-  line-height: 10vh;
+  line-height: 5.3vw;
   margin-top: 1.3vw;
   margin-left: 6vw;
-  font-size: 5vh;
+  font-size: 5.3vw;
   width: 55vw;
   background-color: white;
 `
@@ -66,18 +67,33 @@ class CommentButton extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleInput = this.handleInput.bind(this)
+    this.handleEnterKey = this.handleEnterKey.bind(this)
     this.handlePost = this.handlePost.bind(this)
     this.handleCloseCommentForm = this.handleCloseCommentForm.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('keyup', this.handleClick)
+  }
+
+  componentDidUpdate() {
+    this.input?.addEventListener('keyup', this.handleEnterKey)
   }
 
   handleClick() {
     const { onClick } = this.props
     if (_.isFunction(onClick)) onClick()
-    this.setState({ open: true })
+    if (!this.state.open) {
+      this.setState({ open: true })
+      window.removeEventListener('keyup', this.handleClick)
+      setTimeout(() => this.input?.focus(), 50)
+    }
   }
 
   handleCloseCommentForm() {
     this.setState({ commentFormXlass: 'animated fadeOut' })
+    this.input.removeEventListener('keyup', this.handleEnterKey)
+    window.addEventListener('keyup', this.handleClick)
     setTimeout(() => this.setState({ open: false, commentFormXlass: 'animated fadeIn' }), 500)
   }
 
@@ -85,10 +101,21 @@ class CommentButton extends React.Component {
     this.setState({ comment: e.target.value })
   }
 
+  handleEnterKey(e) {
+    e.preventDefault()
+    if (open) {
+      if (e.keyCode === 13) {
+        this.handlePost()
+        this.input.removeEventListener('keyup', this.handleEnterKey)
+      }
+    }
+  }
+
   handlePost() {
     if (this.state.posted) return
     this.props.postComment({ comment: this.state.comment })
     this.setState({ commentFormXlass: 'animated fadeOut', posted: true })
+    window.addEventListener('keyup', this.handleClick)
     setTimeout(
       () =>
         this.setState({
@@ -106,7 +133,14 @@ class CommentButton extends React.Component {
     return this.state.open ? (
       <>
         <Block className={this.state.commentFormXlass}>
-          <Input type="text" value={this.state.comment} onChange={this.handleInput} />
+          <Input
+            type="text"
+            innerRef={c => {
+              this.input = c
+            }}
+            value={this.state.comment}
+            onChange={this.handleInput}
+          />
           <Submit className="fa fa-pencil" onClick={this.handlePost} />
           <Close className="fa fa-close" onClick={this.handleCloseCommentForm} />
         </Block>

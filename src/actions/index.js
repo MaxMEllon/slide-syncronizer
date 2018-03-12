@@ -16,6 +16,7 @@ export const recieveComment = createAction('recieve comment from server')
 export const disposeComment = createAction('dispose comment')
 
 // canvas
+export const clearCanvas = createAction('crear canvas')
 export const drawLineRemote = createAction('draw the remote canvas')
 export const syncCanvas = createAction('sync remote canvas')
 

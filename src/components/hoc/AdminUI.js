@@ -7,18 +7,18 @@ import RerenderBlocker from '~/components/misc/RerenderBlocker'
 
 const ButtonGroup = styled.div`
   position: absolute;
-  bottom: 3%;
+  top: 4vw;
   width: 100%;
   height: 18%;
   z-index: 1000;
 `
 
 const Button = styled.a`
-  width: 5vw;
-  height: 5vw;
+  width: 10vw;
+  height: 10vw;
   position: absolute;
   text-align: center;
-  font-size: 3.5vw;
+  font-size: 7.5vw;
   border-radius: 100%;
   background-color: rgba(16, 255, 0, 0.42);
   color: white;
@@ -34,10 +34,10 @@ const Button = styled.a`
 `
 
 const Left = styled(Button)`
-  left: 5%;
+  left: 3vw;
 `
 const Right = styled(Button)`
-  right: 5%;
+  right: 3vw;
 `
 
 const Icon = styled.span`
