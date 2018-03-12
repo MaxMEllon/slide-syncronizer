@@ -84,7 +84,7 @@ export default function* rootSaga() {
     const pages = yield call(fetchPages)
     yield pages |> actions.fetchPages |> put
     pages.forEach((url, index) =>
-      setTimeout(() => (new Image().src = `${process.env.SERVER_REST_URL}${url}`), 1000 * index),
+      setTimeout(() => (new Image().src = `${process.env.SERVER_IMAGE_URL}${url}`), 1000 * index),
     )
   } catch (err) {
     yield err |> actions.failureConnectToServer |> put

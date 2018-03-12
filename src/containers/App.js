@@ -11,7 +11,7 @@ import history from '~/utils/history'
 const MyRouting = ({ pages }) => {
   let result = []
   result.push(<Route key="title" exact path="/" component={AdminUI(SlideMaster(Title))} />)
-  pages.forEach((url, index) =>
+  pages?.forEach((url, index) =>
     result.push(
       <Route
         key={index}
@@ -27,7 +27,6 @@ const MyRouting = ({ pages }) => {
 class App extends React.Component {
   render() {
     const { pages } = this.props
-    if (!pages) return
     return (
       <ConnectedRouter history={history}>
         <Switch>

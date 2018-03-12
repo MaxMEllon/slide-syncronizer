@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const combine = url => `${process.env.SERVER_REST_URL}${url}`
+const combine = url => `${process.env.SERVER_IMAGE_URL}${url}`
 
 const Wrapper = styled.div`
   width: 100%;
