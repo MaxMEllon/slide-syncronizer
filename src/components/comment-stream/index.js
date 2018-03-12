@@ -9,6 +9,7 @@ const Text = styled.span`
   position: absolute;
   font-size: 4vw;
   color: rgba(255, 255, 255, 0.6);
+  text-shadow: 5px 2px black;
   height: 4vw;
   width: 500vw;
   left: -100%;
