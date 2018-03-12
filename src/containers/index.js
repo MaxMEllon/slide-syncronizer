@@ -5,10 +5,13 @@ import { Provider } from 'react-redux'
 import styled from 'styled-components'
 import store from '~/stores'
 import CommentList from '~/components/comment-stream'
+import SlideMaster from '~/components/hoc/SlideMaster'
+import AdminUI from '~/components/hoc/AdminUI'
 import Canvas from '~/components/canvas'
 import App from './App'
 
 const Background = styled.div`
+  position: static;
   width: 100vw;
   height: 100vh;
   background-color: black;
@@ -34,13 +37,35 @@ const Content = styled.div`
   margin-top: 1vw;
 `
 
+const UI = SlideMaster(() => <div />)
+
 class EntryPoint extends React.Component {
   state = {
     width: 0,
     height: 0,
   }
 
+  once = false
+
+  constructor(props) {
+    super(props)
+    this.updateSize = this.updateSize.bind(this)
+  }
+
   componentDidMount() {
+    const $dom = ReactDOM.findDOMNode(this.wrapper)
+    window.addEventListener('orientationchange', this.updateSize)
+    window.addEventListener('resize', this.updateSize)
+    if (!this.once) {
+      this.setState({
+        width: $dom.offsetWidth,
+        height: $dom.offsetHeight,
+      })
+      this.once = true
+    }
+  }
+
+  updateSize() {
     const $dom = ReactDOM.findDOMNode(this.wrapper)
     this.setState({
       width: $dom.offsetWidth,
@@ -54,6 +79,7 @@ class EntryPoint extends React.Component {
         <Background>
           <Wrapper ref={c => (this.wrapper = c)}>
             <Content>
+              <UI />
               <CommentList />
               <App />
               <Canvas width={this.state.width} height={this.state.height} />

@@ -4,9 +4,8 @@ import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import Preloader from '~/components/preloader'
 import Slide from '~/components/Slide'
-import SlideMaster from '~/components/hoc/SlideMaster'
-import AdminUI from '~/components/hoc/AdminUI'
 import history from '~/utils/history'
+import RouteCssTransitionGroup from './RouteCssTransitionGroup'
 
 const MyRouting = ({ pages }) => {
   let result = []
@@ -16,7 +15,7 @@ const MyRouting = ({ pages }) => {
       <Route
         key={index}
         path={`/${index}`}
-        component={AdminUI(SlideMaster(props => <Slide url={url} {...props} />))}
+        component={props => <Slide url={url} {...props} />}
       />,
     ),
   )
@@ -27,11 +26,13 @@ class App extends React.Component {
   render() {
     const { pages } = this.props
     return (
-      <ConnectedRouter history={history}>
-        <Switch>
-          <MyRouting pages={pages} />
-        </Switch>
-      </ConnectedRouter>
+        <ConnectedRouter history={history}>
+          <RouteCssTransitionGroup>
+            <Switch>
+              <MyRouting pages={pages} />
+            </Switch>
+          </RouteCssTransitionGroup>
+        </ConnectedRouter>
     )
   }
 }

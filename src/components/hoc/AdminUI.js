@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { isAdmin, isFirst } from '~/utils'
 import { pageMove } from '~/actions'
 import RerenderBlocker from '~/components/misc/RerenderBlocker'
+import SlideMaster from '~/components/hoc/SlideMaster'
+import AdminUI from '~/components/hoc/AdminUI'
 
 const ButtonGroup = styled.div`
   position: absolute;

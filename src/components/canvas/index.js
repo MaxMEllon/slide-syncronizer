@@ -60,7 +60,7 @@ class Canvas extends React.Component {
   }
 
   get isAdmin() {
-    return isAdmin(this.props.router.location.search)
+    return isAdmin(window.location.search)
   }
 
   drawLine(context, x, y) {

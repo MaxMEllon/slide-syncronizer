@@ -87,7 +87,6 @@ class ConfigGenerator {
     const HappyPackOpt = { loaders: [{ loader: 'babel-loader?cacheDirectory=true' }] }
     plugins
       .add(new Dotenv({ path: './.env' }))
-      .add(new HtmlWebpackPlugin({ template: template(this.dev) }))
       .add(new webpack.NamedModulesPlugin())
       .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
       .add(new HappyPack(HappyPackOpt))
@@ -96,6 +95,14 @@ class ConfigGenerator {
         filename: 'bundle.css',
         disable: false,
         allChunks:true
+      }))
+      .add(new HtmlWebpackPlugin({
+        template: template(this.dev),
+        cache: true,
+        minify: {
+          collapseWhitespace: true,
+          preserveLineBreaks: true
+        }
       }))
     if (this.dev)
       plugins

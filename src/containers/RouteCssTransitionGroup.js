@@ -38,9 +38,12 @@ export default class RouteCSSTransitionGroup extends React.Component {
       <ReactCSSTransitionGroup
         component="div"
         transitionName="routing"
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={100}>
-        <StaticContainer key={previousPathname || currentPathname} shouldUpdate={!previousPathname}>
+        transitionEnterTimeout={250}
+        transitionLeaveTimeout={-100}>
+        <StaticContainer
+          key={previousPathname || currentPathname}
+          shouldUpdate={!previousPathname}
+        >
           {children}
         </StaticContainer>
       </ReactCSSTransitionGroup>

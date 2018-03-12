@@ -15,7 +15,7 @@ const Header = styled.div`
   padding-bottom: 0.2vw;
 `
 
-export default Component =>
+export default Component => AdminUI(
   class extends React.Component {
     render() {
       return (
@@ -29,4 +29,5 @@ export default Component =>
         </>
       )
     }
-  } |> AdminUI
+  }
+)

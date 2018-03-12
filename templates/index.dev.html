@@ -64,6 +64,22 @@
       -webkit-user-select: none;
       user-select: none;
     }
+    .routing-leave {
+      dispay: none;
+    }
+    .routing-leave.routing-leave-active {
+      dispay: none;
+    }
+    .routing-enter {
+      opacity: 0.8;
+    }
+    .routing-enter.routing-enter-active {
+      opacity: 1;
+      transition: opacity .1s ease-in .15s;
+    }
+    .routing-height {
+      transition: height .15s ease-in-out;
+    }
   </style>
 </head>
 
