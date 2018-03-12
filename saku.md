@@ -11,6 +11,10 @@
     $(npm bin)/saku _ready
     NODE_ENV=development $(npm bin)/webpack-dev-server --watch --progress
 
+# prod
+    $(npm bin)/saku build
+    $(npm bin)/pm2 start app.json --env production -i 4
+
 # dev-remote
 > Start to develop by webpack-server (for vagrant).
 

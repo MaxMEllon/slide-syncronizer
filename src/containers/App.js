@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import RouteCSSTransitionGroup from './RouteCSSTransitionGroup'
 import { Switch, BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import Title from '~/components/title'
