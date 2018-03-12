@@ -12,11 +12,7 @@ const MyRouting = ({ pages }) => {
   result.push(<Route key="title" exact path="/" component={Preloader} />)
   pages?.forEach((url, index) =>
     result.push(
-      <Route
-        key={index}
-        path={`/${index}`}
-        component={props => <Slide url={url} {...props} />}
-      />,
+      <Route key={index} path={`/${index}`} component={props => <Slide url={url} {...props} />} />,
     ),
   )
   return result
@@ -26,13 +22,13 @@ class App extends React.Component {
   render() {
     const { pages } = this.props
     return (
-        <ConnectedRouter history={history}>
-          <RouteCssTransitionGroup>
-            <Switch>
-              <MyRouting pages={pages} />
-            </Switch>
-          </RouteCssTransitionGroup>
-        </ConnectedRouter>
+      <ConnectedRouter history={history}>
+        <RouteCssTransitionGroup>
+          <Switch>
+            <MyRouting pages={pages} />
+          </Switch>
+        </RouteCssTransitionGroup>
+      </ConnectedRouter>
     )
   }
 }

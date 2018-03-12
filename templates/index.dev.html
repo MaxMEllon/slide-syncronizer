@@ -71,14 +71,14 @@
       dispay: none;
     }
     .routing-enter {
-      opacity: 0.8;
+      filter: brightness(0.7) grayscale(10%);
     }
     .routing-enter.routing-enter-active {
-      opacity: 1;
-      transition: opacity .1s ease-in .15s;
+      filter: unset;
+      transition: filter .25s ease-in 0s;
     }
     .routing-height {
-      transition: height .15s ease-in-out;
+      transition: height .0s ease-in-out;
     }
   </style>
 </head>
