@@ -72,7 +72,7 @@ class Canvas extends React.Component {
     context.grobalAlpha = 0.01
     context.lineCap = 'round'
     context.strokeStyle = 'rgba(255, 247, 0, 0.01)'
-    context.lineWidth = 4
+    context.lineWidth = this.props.width < 400 ? 2 : 6
     context.lineTo(x, y)
     context.stroke()
     this.updateLastMousePosition(x, y)
