@@ -36,6 +36,10 @@ const socket = createReducer(
   {
     [actions.connectToServer]: (state, payload) =>
       state.instance?.connected !== payload.instance?.connected ? payload : state,
+    [actions.failureConnectToServer]: () => {
+      alert('サーバーとの接続に失敗しました')
+      return null
+    },
   },
   initialState.socket,
 )
