@@ -27,9 +27,11 @@ const Wrapper = styled.div`
 const Content = styled.div`
   grid-column: span 16;
   grid-row: span 10;
-  width: calc(100% - 20px);
-  height: calc(100% - 40px);
-  margin: 20px;
+  width: calc(100% - 2vw);
+  height: calc(100% - 1vw);
+  margin-left: 1vw;
+  margin-right: 1vw;
+  margin-top: 1vw;
 `
 
 class EntryPoint extends React.Component {

@@ -12,8 +12,8 @@ const Text = styled.span`
   height: 4vw;
   width: 500vw;
   left: -100%;
-  top: calc(${({ top }) => top % 6} * 6vw);
-  animation: moveToLeft 12s linear 0s 1;
+  top: calc(${({ top }) => top % 8} * 6vw);
+  animation: moveToLeft 40s linear 0s 1;
 
   @keyframes moveToLeft {
     0% {
@@ -50,9 +50,9 @@ class Comment extends React.unstable_AsyncComponent {
 const List = styled.div`
   position: absolute;
   width: 100vw;
-  height: 60vh;
+  height: 80vh;
   overflow: hidden;
-  top: 20vh;
+  top: 10vw;
   z-index: 10;
 `
 

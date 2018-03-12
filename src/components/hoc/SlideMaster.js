@@ -12,6 +12,7 @@ const Header = styled.div`
   width: 100%;
   font-size: 1.5vw;
   padding-right: 2%;
+  padding-bottom: 0.2vw;
 `
 
 export default Component =>

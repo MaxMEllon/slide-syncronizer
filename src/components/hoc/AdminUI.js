@@ -37,7 +37,7 @@ const Left = styled(Button)`
   left: 3vw;
 `
 const Right = styled(Button)`
-  right: 3vw;
+  right: 6vw;
 `
 
 const Icon = styled.span`

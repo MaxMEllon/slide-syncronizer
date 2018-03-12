@@ -113,7 +113,7 @@ class CommentButton extends React.Component {
 
   handlePost() {
     if (this.state.posted) return
-    this.props.postComment({ comment: this.state.comment })
+    if (!_.isEmpty(this.state.comment)) this.props.postComment({ comment: this.state.comment })
     this.setState({ commentFormXlass: 'animated fadeOut', posted: true })
     window.addEventListener('keyup', this.handleClick)
     setTimeout(
