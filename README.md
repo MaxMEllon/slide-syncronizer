@@ -19,9 +19,9 @@ Quick start in local
 
 1. npm i -g saku
 1. saku init
-1. saku dev
 1. `$ mv .env.example .env` and please modify .env file if needed
-1. start up [last-session-server](https://github.com/MaxMEllon/last-session-server)
+1. start up [last-session-server](https://github.com/MaxMEllon/last-session-server) on other terminal
+1. saku dev
 1. **Please accsess to http://localhost:3000**
 > admin mode **http://localhost:3000?&admin=true**
 
