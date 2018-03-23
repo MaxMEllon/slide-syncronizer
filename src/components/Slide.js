@@ -13,12 +13,8 @@ const Img = styled.img`
   height: auto;
 `
 
-export default class Slide extends React.unstable_AsyncComponent {
-  render() {
-    return (
-      <Wrapper>
-        <Img src={combine(this.props.url)} />
-      </Wrapper>
-    )
-  }
-}
+export default ({ url }) => (
+  <Wrapper>
+    <Img src={combine(url)} />
+  </Wrapper>
+)

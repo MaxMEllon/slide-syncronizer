@@ -7,8 +7,4 @@ const Preloader = styled.span`
   padding-top: calc(50% - 1.5vw);
 `
 
-export default () => (
-  <>
-    <Preloader className="fa fa-spin fa-loading" />
-  </>
-)
+export default () => <Preloader className="fa fa-spin fa-loading" />
