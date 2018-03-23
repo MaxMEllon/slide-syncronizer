@@ -54,6 +54,11 @@ Global dependencies
 - SERVER_REST_URL="http://localhost:8765/api"
 - SERVER_IMAGE_URL="http://localhost:8765"
 
+Production settings (nginx)
+---
+
+- https://gist.github.com/MaxMEllon/20a716a1ec18bd3bd4f1ffbcb76b0cca
+
 LICENSE
 ---
 
