@@ -32,9 +32,9 @@ Global dependencies
 
 .env (example)
 ----
-SERVER_SOCKET_URL="http://localhost:8080"
-SERVER_REST_URL="http://localhost:8765/api"
-SERVER_IMAGE_URL="http://localhost:8765"
+- SERVER_SOCKET_URL="http://localhost:8080"
+- SERVER_REST_URL="http://localhost:8765/api"
+- SERVER_IMAGE_URL="http://localhost:8765"
 
 LICENSE
 ---
