@@ -1,12 +1,12 @@
-import { flatten } from 'lodash'
-import path from 'path'
-import webpack from 'webpack'
-import Dotenv from 'dotenv-webpack'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import WebpackNotifier from 'webpack-notifier'
-import HappyPack from 'happypack'
-import CompressionPlugin from 'compression-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+const { flatten } = require('lodash')
+const path = require('path')
+const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WebpackNotifier = require('webpack-notifier')
+const HappyPack = require('happypack')
+const CompressionPlugin = require('compression-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const loaders = {
   babel() {
@@ -70,7 +70,7 @@ class ConfigGenerator {
 
   get entry() {
     return {
-      entry: ['babel-polyfill', './src/index.js'],
+      entry: ['regenerator-runtime/runtime', './src/index.js'],
     }
   }
 

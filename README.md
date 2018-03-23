@@ -7,6 +7,9 @@ Quick start in local
 1. saku init
 1. saku dev
 
+**Please accsess to http://localhost:3000**
+> admin mode **http://localhost:3000?&admin=true**
+
 Tasks
 ---
 

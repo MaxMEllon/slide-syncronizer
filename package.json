@@ -6,10 +6,10 @@
   "author": "MaxMEllon <maxmellon1994@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "7.0.0-beta.40",
-    "@babel/core": "7.0.0-beta.40",
-    "@babel/register": "7.0.0-beta.40",
-    "@maxmellon/babel-preset": "^1.0.3",
+    "@babel/cli": "7.0.0-beta.41",
+    "@babel/core": "7.0.0-beta.41",
+    "@babel/register": "7.0.0-beta.41",
+    "@maxmellon/babel-preset": "1.1.6",
     "babel-eslint": "^8.2.1",
     "babel-loader": "8.0.0-beta.0",
     "compression-webpack-plugin": "^1.1.7",
@@ -27,6 +27,7 @@
     "prettier": "^1.10.2",
     "react-hot-loader": "^4.0.0-beta.22",
     "react-tap-event-plugin": "^3.0.2",
+    "regenerator-runtime": "^0.11.1",
     "saku": "^0.11.0",
     "style-loader": "^0.20.2",
     "url-loader": "^0.6.2",
@@ -38,7 +39,6 @@
   "dependencies": {
     "animate.css": "^3.6.1",
     "axios": "^0.18.0",
-    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",
@@ -64,3 +64,4 @@
     "styled-components": "^3.1.6"
   }
 }
+
