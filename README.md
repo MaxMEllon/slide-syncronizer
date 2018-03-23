@@ -30,6 +30,12 @@ Global dependencies
 - **npm** >= v5.5.1
 - **saku** >= v0.11.0
 
+.env (example)
+----
+SERVER_SOCKET_URL="http://192.168.0.10:8080"
+SERVER_REST_URL="http://192.168.0.10:8765/api"
+SERVER_IMAGE_URL="http://192.168.0.10:8765"
+
 LICENSE
 ---
 
