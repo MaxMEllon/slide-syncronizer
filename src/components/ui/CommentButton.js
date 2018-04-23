@@ -8,8 +8,8 @@ import { postComment } from '~/actions'
 import IconBasedButton from './IconBasedButton'
 
 const Comment = styled(IconBasedButton)`
-  right: 19vw;
-  bottom: 6vw;
+  right: 18vw;
+  top: 6vw;
 `
 
 const Block = styled.div`
@@ -67,17 +67,8 @@ class CommentButton extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleInput = this.handleInput.bind(this)
-    this.handleEnterKey = this.handleEnterKey.bind(this)
     this.handlePost = this.handlePost.bind(this)
     this.handleCloseCommentForm = this.handleCloseCommentForm.bind(this)
-  }
-
-  componentDidMount() {
-    window.addEventListener('keyup', this.handleClick)
-  }
-
-  componentDidUpdate() {
-    this.input?.addEventListener('keyup', this.handleEnterKey)
   }
 
   handleClick() {
@@ -85,15 +76,12 @@ class CommentButton extends React.Component {
     if (_.isFunction(onClick)) onClick()
     if (!this.state.open) {
       this.setState({ open: true })
-      window.removeEventListener('keyup', this.handleClick)
       setTimeout(() => this.input?.focus(), 50)
     }
   }
 
   handleCloseCommentForm() {
     this.setState({ commentFormXlass: 'animated fadeOut' })
-    this.input.removeEventListener('keyup', this.handleEnterKey)
-    window.addEventListener('keyup', this.handleClick)
     setTimeout(() => this.setState({ open: false, commentFormXlass: 'animated fadeIn' }), 500)
   }
 
@@ -101,21 +89,11 @@ class CommentButton extends React.Component {
     this.setState({ comment: e.target.value })
   }
 
-  handleEnterKey(e) {
-    e.preventDefault()
-    if (open) {
-      if (e.keyCode === 13) {
-        this.handlePost()
-        this.input.removeEventListener('keyup', this.handleEnterKey)
-      }
-    }
-  }
 
   handlePost() {
     if (this.state.posted) return
     if (!_.isEmpty(this.state.comment)) this.props.postComment({ comment: this.state.comment })
     this.setState({ commentFormXlass: 'animated fadeOut', posted: true })
-    window.addEventListener('keyup', this.handleClick)
     setTimeout(
       () =>
         this.setState({

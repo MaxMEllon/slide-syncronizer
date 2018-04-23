@@ -36,10 +36,10 @@ const Button = styled.a`
 `
 
 const Left = styled(Button)`
-  left: 3vw;
+  left: 28vw;
 `
 const Right = styled(Button)`
-  right: 6vw;
+  right: 28vw;
 `
 
 const Icon = styled.span`

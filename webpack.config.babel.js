@@ -7,6 +7,7 @@ const WebpackNotifier = require('webpack-notifier')
 const HappyPack = require('happypack')
 const CompressionPlugin = require('compression-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OfflinePlugin = require('offline-plugin')
 
 const loaders = {
   babel() {
@@ -91,6 +92,14 @@ class ConfigGenerator {
       .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
       .add(new HappyPack(HappyPackOpt))
       .add(new webpack.optimize.CommonsChunkPlugin(CommonsChunkPluginOpt))
+      .add(new OfflinePlugin({
+        caches: {
+          main: [
+            '*.js',
+            '*.css',
+          ],
+        }
+      }))
       .add(new ExtractTextPlugin({
         filename: 'bundle.css',
         disable: false,

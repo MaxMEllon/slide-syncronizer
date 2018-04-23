@@ -20,21 +20,18 @@ const Background = styled.div`
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(16, 6.195vw);
-  grid-auto-rows: 6.195vw;
+  grid-template-columns: repeat(40, 2.5vw);
+  grid-auto-rows: 2.5vw;
   position: relative;
   width: 100%;
   background-color: black;
 `
 
 const Content = styled.div`
-  grid-column: span 16;
-  grid-row: span 10;
-  width: calc(100% - 2vw);
-  height: calc(100% - 1vw);
-  margin-left: 1vw;
-  margin-right: 1vw;
-  margin-top: 1vw;
+  grid-row: span 24;
+  grid-column: 5 / span 32;
+  width: calc(100%);
+  height: calc(100%);
 `
 
 const UI = SlideMaster(() => <div />)
@@ -79,10 +76,10 @@ class EntryPoint extends React.Component {
         <Background>
           <Wrapper ref={c => (this.wrapper = c)}>
             <Content>
-              <UI />
-              <CommentList />
               <App />
+              <CommentList />
               <Canvas width={this.state.width} height={this.state.height} />
+              <UI />
             </Content>
           </Wrapper>
         </Background>
