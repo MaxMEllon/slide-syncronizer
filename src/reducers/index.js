@@ -5,7 +5,6 @@ import { routerReducer as router } from 'react-router-redux'
 import * as actions from '~/actions'
 import List from '~/models/List'
 import Comment from '~/models/Comment'
-import data from '~/constants/slide.json'
 
 export const initialState = {
   currentPage: {

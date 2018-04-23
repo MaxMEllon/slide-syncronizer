@@ -85,7 +85,7 @@ export default function* rootSaga() {
     yield pages |> actions.fetchPages |> put
     pages.forEach(
       (url, index) => (
-        setTimeout(() => (new Image().src = `${process.env.SERVER_IMAGE_URL}${url}`)), 1 * index
+        setTimeout(() => (new Image().src = `${process.env.SERVER_IMAGE_URL}${url}`)), 500 * index
       ),
     )
   } catch (err) {
