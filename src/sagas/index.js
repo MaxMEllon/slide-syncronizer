@@ -28,6 +28,9 @@ function* pageManageTask() {
   })
   yield takeLatest(actions.changePage, function*({ payload }) {
     const { currentPage, router } = yield select()
+    const index = (currentPage.index + 1) % currentPage.pages.length
+    const url = currentPage.pages[index]
+    new Image().src = `${process.env.SERVER_IMAGE_URL}${url}`
     if (currentPage.index === payload) {
       const pathname = `/${payload}`
       yield { pathname, search: router.location?.search } |> push |> put
@@ -83,11 +86,6 @@ export default function* rootSaga() {
   try {
     const pages = yield call(fetchPages)
     yield pages |> actions.fetchPages |> put
-    pages.forEach(
-      (url, index) => (
-        setTimeout(() => (new Image().src = `${process.env.SERVER_IMAGE_URL}${url}`)), 500 * index
-      ),
-    )
   } catch (err) {
     yield err |> actions.failureConnectToServer |> put
   }
