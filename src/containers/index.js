@@ -78,7 +78,6 @@ class EntryPoint extends React.Component {
             <Content>
               <App />
               <CommentList />
-              <Canvas width={this.state.width} height={this.state.height} />
               <UI />
             </Content>
           </Wrapper>
