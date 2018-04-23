@@ -91,17 +91,32 @@ class ConfigGenerator {
       .add(new webpack.NamedModulesPlugin())
       .add(new WebpackNotifier({ title: 'webpack', alwaysNotify: true }))
       .add(new HappyPack(HappyPackOpt))
+      .add(new webpack.HashedModuleIdsPlugin())
       .add(new webpack.optimize.CommonsChunkPlugin(CommonsChunkPluginOpt))
       .add(new OfflinePlugin({
         caches: {
           main: [
             '*.js',
             '*.css',
+            '*.woff',
+            '*.woff2',
+            '*.eot',
+            '*.svg',
           ],
-        }
+        },
+        externals: [
+          'https://maxmellon.tokyo/dist/react-dom.production.min.js',
+          'https://maxmellon.tokyo/dist/animate.min.css',
+          'https://maxmellon.tokyo/dist/reset.css',
+          'https://maxmellon.tokyo/dist/react.production.min.js',
+          'https://maxmellon.tokyo/dist/lodash.min.js',
+          'https://maxmellon.tokyo/dist/bluebird.min.js',
+        ],
+        AppCache: false,
+        safeToUseOptionalCaches: true,
       }))
       .add(new ExtractTextPlugin({
-        filename: 'bundle.css',
+        filename: 'bundle.[chunkhash].css',
         disable: false,
         allChunks:true
       }))
@@ -133,7 +148,7 @@ class ConfigGenerator {
   get output() {
     return {
       path: `${__dirname}/dist/`,
-      filename: 'bundle.js',
+      filename: 'bundle.[chunkhash].js',
       libraryTarget: 'umd',
     }
   }
