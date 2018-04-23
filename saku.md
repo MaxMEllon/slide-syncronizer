@@ -55,6 +55,7 @@
 
     rm -rf dist
     mkdir -p dist/fonts
+    cp ./manifest.json dist
     cp ./node_modules/reset.css/reset.css                       dist
     cp ./node_modules/animate.css/animate.min.css               dist
     cp ./node_modules/react/umd/react.development.js            dist

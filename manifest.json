@@ -1,0 +1,11 @@
+{
+  "name": "last session - A application provide a sync pages of presentation slides.",
+  "short_name": "LastSession",
+  "icons": [],
+  "start_url": "https://maxmellon.tokyo",
+  "display": "standalone",
+  "orientation": "landscape",
+  "theme_color": "#317efb",
+  "background_color": "#317efb"
+}
+

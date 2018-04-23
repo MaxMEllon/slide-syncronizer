@@ -18,6 +18,6 @@ const Img = styled.img`
 
 export default ({ url }) => (
   <Wrapper>
-    <Img src={combine(url)} />
+    <Img alt="slide-image" src={combine(url)} />
   </Wrapper>
 )
