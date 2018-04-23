@@ -6,14 +6,18 @@ const filepath = path.join(__dirname, './dist', 'index.html')
 const stat = fs.statSync(filepath)
 const html = fs.readFileSync(filepath)
 
+const port = 3000 + parseInt(process.env.NODE_APP_INSTANCE || 0)
+
 http
   .createServer((req, res) => {
-    response.writeHead(200, {
+    res.writeHead(200, {
       'Content-Type': 'text/html',
       'Content-Length': stat.size,
       'Cache-Control': 'public, max-age=6000',
     })
-    response.write(html)
-    response.end
+    // res.write(html)
+    res.end(html)
   })
-  .listen(3000)
+  .listen(port, () => {
+    console.log(`listening on *:${port}`)
+  })
