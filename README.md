@@ -1,5 +1,6 @@
 # Last session
 
+
 Demo
 ---
 
@@ -24,6 +25,11 @@ Quick start in local
 1. saku dev
 1. **Please accsess to http://localhost:3000**
 > admin mode **http://localhost:3000?&admin=true**
+
+Status
+---
+
+![score](./.github/score.png)
 
 Tasks
 ---
