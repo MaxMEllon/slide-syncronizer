@@ -2,18 +2,24 @@
 
 <html lang="ja-jp">
 
-<head>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=3, minimal-ui">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="theme-color" content="#317EFB">
   <meta name="Description" content="A application provide a sync pages of presentation slides.">
-  <title>Last session | Maxmellon</title>
+  <title>maxmellon.tokyo | introduction udon and OOP</title>
+  <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII=" rel="icon" type="image/x-icon" />
+  <meta property="og:title" content="maxmellon.tokyo" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://maxmellon.tokyo" />
+  <meta property="og:image" content="https://maxmellon.tokyo/public/qr.png" />
+  <meta property="og:site_name" content="maxmellon.tokyo" />
+  <meta property="og:description" content="A application provide a sync pages of presentation slides." />
   <link rel="manifest" href="/dist/manifest.json">
   <link defer rel="stylesheet" href="/dist/reset.css">
-  <link defer rel="stylesheet" href="/dist/animate.min.css">
   <style>
     html, body {
       height: 100%;
@@ -48,20 +54,67 @@
     }
     .routing-enter.routing-enter-active {
       filter: unset;
-      transition: filter .25s ease-in 0s;
+      transition: filter .22s ease-in 0s;
     }
     .routing-height {
       transition: height .0s ease-in-out;
     }
+    .animated {
+      -webkit-animation-duration: 1s;
+      animation-duration: 1s;
+      -webkit-animation-fill-mode: both;
+      animation-fill-mode: both;
+    }
+    @-webkit-keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fadeIn {
+      -webkit-animation-name: fadeIn;
+      animation-name: fadeIn;
+    }
+    @-webkit-keyframes fadeout {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeout {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    .fadeOut {
+      -webkit-animation-name: fadeOut;
+      animation-name: fadeOut;
+    }
   </style>
 </head>
 
-<body>
-  <div id="root"></div>
-  <script src="/dist/bluebird.min.js"></script>
-  <script src="/dist/react.production.min.js"></script>
-  <script src="/dist/react-dom.production.min.js"></script>
-  <script src="/dist/lodash.min.js"></script>
-</body>
-</html>
+<body><div id="root"></div><script src="/dist/bluebird.min.js"></script><script src="/dist/react.production.min.js"></script><script src="/dist/react-dom.production.min.js"></script><script src="/dist/lodash.min.js"></script></body></html>
 

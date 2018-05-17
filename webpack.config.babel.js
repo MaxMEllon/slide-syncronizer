@@ -124,8 +124,12 @@ class ConfigGenerator {
         template: template(this.dev),
         cache: true,
         minify: {
+          caseSensitive: true,
+          collapseBooleanAttributes: true,
+          collapseInlineTagWhitespace: true,
           collapseWhitespace: true,
-          preserveLineBreaks: true
+          preserveLineBreaks: true,
+          minifyCSS: true,
         }
       }))
     if (this.dev)

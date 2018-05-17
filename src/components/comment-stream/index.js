@@ -9,13 +9,13 @@ const Text = styled.span`
   position: absolute;
   font-size: 4vw;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.4);
   text-shadow: 1px -1px gray;
   height: 4vw;
   width: 500vw;
   left: -100%;
   top: calc(${({ top }) => top % 8} * 6vw);
-  animation: moveToLeft 45s linear 0s 1;
+  animation: moveToLeft 35s linear 0s 1;
 
   @keyframes moveToLeft {
     0% {

@@ -4,7 +4,11 @@ const fs = require('fs')
 
 const filepath = path.join(__dirname, './dist', 'index.html')
 const stat = fs.statSync(filepath)
-const html = fs.readFileSync(filepath)
+const html = fs
+  .readFileSync(filepath)
+  .toString()
+
+console.log(html)
 
 const port = 3000 + parseInt(process.env.NODE_APP_INSTANCE || 0)
 
